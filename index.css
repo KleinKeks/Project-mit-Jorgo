@@ -1,3 +1,5 @@
 body {
   text-align: center;
+  background-color: #6495ED; /* CornflowerBlue */
+  color: white; /* Optional: makes text more readable on blue */
 }

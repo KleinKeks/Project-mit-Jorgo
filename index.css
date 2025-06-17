@@ -43,3 +43,8 @@ nav a {
   font-weight: bold;
   height: 100%;
 }
+nav a:nth-child(2) {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  height: 100%;
+}

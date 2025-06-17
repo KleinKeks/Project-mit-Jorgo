@@ -11,9 +11,26 @@ ctx = canvas.getContext("2d");
 //Setup 
 
 //Erstelle den Spieler
-player = new player("100,400");
+player = new Player("100,400");
 
-//erstelle das canvas
-ctx.fillStyle = "white";
-ctx.fillRect(0,0,1280,720);
+// game loop
+gameloop = setInterval(step, 1000/30);
+
+
+function step(){
+    //move player
+    player.step();
+
+    //Zeichne alles
+    draw();
+}
+
+function draw(){
+    //erstelle das canvas
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,1280,720);
+
+    player.draw();
+    
+}
 }

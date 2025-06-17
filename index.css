@@ -24,15 +24,8 @@ section h2 {
   font-size: 2em;
   margin: 40px 0 20px 0;
 }
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  margin: 30px 0;
-  height: 60px; /* Adjust height as needed */
-}
-
 nav a {
+  position: relative;
   flex: 1;
   display: flex;
   align-items: center;
@@ -42,9 +35,29 @@ nav a {
   color: white;
   font-weight: bold;
   height: 100%;
+  overflow: hidden;
+  z-index: 1;
 }
-nav a:nth-child(2) {
-  border-left: 2px solid white;
-  border-right: 2px solid white;
+
+nav a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40%;
+  height: 40%;
+  background: purple;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+nav a:hover::before {
+  width: 100%;
   height: 100%;
+  border-radius: 0;
+  transform: translate(-50%, -50%) scale(1.2);
+  opacity: 1;
 }

@@ -8,6 +8,11 @@ window.onload = function() {
 canvas = document.getElementById("game-canvas");
 ctx = canvas.getContext("2d");
 
+//Setup 
+
+//Erstelle den Spieler
+player = new player("100,400");
+
 //erstelle das canvas
 ctx.fillStyle = "white";
 ctx.fillRect(0,0,1280,720);

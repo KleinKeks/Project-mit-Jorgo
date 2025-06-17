@@ -8,6 +8,7 @@ window.onload = function() {
 canvas = document.getElementById("game-canvas");
 ctx = canvas.getContext("2d");
 
-ctx.fillStyle = "red";
-ctx.fillRect(10,10,50,50);
+//erstelle das canvas
+ctx.fillStyle = "white";
+ctx.fillRect(0,0,1280,720);
 }

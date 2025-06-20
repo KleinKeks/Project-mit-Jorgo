@@ -3,27 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chrome Dino Game</title>
+    <title>Simple Dino Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container" id="gameContainer">
-        <div class="instructions">
-            SPACE = Jump | ↓ = Duck
-        </div>
-        <div class="score" id="score">HI 00000 00000</div>
+    <div class="game">
         <div class="dino" id="dino"></div>
-        <div class="ground"></div>
-        
-        <div class="start-message" id="startMessage">
-            <h2>🦕 DINO RUN</h2>
-            <p>Press SPACE to start</p>
-        </div>
+        <div class="cactus" id="cactus"></div>
+        <div class="score" id="score">Score: 0</div>
         
         <div class="game-over" id="gameOver">
-            <h2>GAME OVER</h2>
-            <p>Your Score: <span id="finalScore">0</span></p>
-            <button class="restart-btn" onclick="restartGame()">RESTART</button>
+            <h2>Game Over!</h2>
+            <button onclick="restartGame()">Play Again</button>
         </div>
     </div>
 

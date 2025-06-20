@@ -79,8 +79,9 @@ function restartGame() {
     scoreElement.textContent = 'Score: 0';
     gameOverElement.style.display = 'none';
     
-    // Reset cactus position by restarting the animation
+    // Reset cactus position and speed
     cactus.style.animation = 'none';
+    cactus.style.animationDuration = '2s'; // Reset to original speed
     setTimeout(() => {
         cactus.style.animation = 'moveCactus 2s linear infinite';
     }, 10);
@@ -97,7 +98,22 @@ function updateScore() {
     if (gameRunning) {
         score++;
         scoreElement.textContent = 'Score: ' + score;
+        
+        // Speed up cactus every 100 points
+        if (score % 100 === 0) {
+            speedUpGame();
+        }
     }
+}
+
+// Speed up the game
+function speedUpGame() {
+    // Calculate new speed (gets faster every 100 points)
+    const speedLevel = Math.floor(score / 100);
+    const newDuration = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
+    
+    // Apply new speed to cactus
+    cactus.style.animationDuration = newDuration + 's';
 }
 
 // Game loop - runs every 100ms

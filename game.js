@@ -5,15 +5,12 @@ const scoreElement = document.getElementById('score');
 const gameOverElement = document.getElementById('gameOver');
 const backgroundMusic = document.getElementById('backgroundMusic');
 const gameOverSound = document.getElementById('gameOverSound');
-const gameDiv = document.querySelector('.game');
-const body = document.body;
 
 // Game variables
 let score = 0;
 let isJumping = false;
 let gameRunning = true;
 let musicStarted = false;
-let currentLevel = 1;
 
 // Listen for spacebar press
 document.addEventListener('keydown', function(event) {
@@ -79,13 +76,8 @@ function gameOver() {
 function restartGame() {
     gameRunning = true;
     score = 0;
-    currentLevel = 1;
     scoreElement.textContent = 'Score: 0';
     gameOverElement.style.display = 'none';
-    
-    // Reset colors to level 1
-    body.classList.remove('level2', 'level3');
-    gameDiv.classList.remove('level2', 'level3');
     
     // Reset cactus position by restarting the animation
     cactus.style.animation = 'none';
@@ -93,51 +85,18 @@ function restartGame() {
         cactus.style.animation = 'moveCactus 2s linear infinite';
     }, 10);
     
-    // Restart background music at normal speed
+    // Restart background music
     backgroundMusic.currentTime = 0; // Reset to beginning
-    backgroundMusic.playbackRate = 1.0; // Reset to normal speed
     backgroundMusic.play().catch(e => {
         console.log('Could not restart background music:', e);
     });
 }
 
-// Update score and check for level changes
+// Update score
 function updateScore() {
     if (gameRunning) {
         score++;
         scoreElement.textContent = 'Score: ' + score;
-        
-        // Check for level changes
-        checkLevelUp();
-    }
-}
-
-// Check if player reached new level
-function checkLevelUp() {
-    if (score === 500 && currentLevel === 1) {
-        levelUp(2);
-    } else if (score === 1000 && currentLevel === 2) {
-        levelUp(3);
-    }
-}
-
-// Level up function
-function levelUp(newLevel) {
-    currentLevel = newLevel;
-    
-    // Change colors based on level
-    if (newLevel === 2) {
-        body.classList.add('level2');
-        gameDiv.classList.add('level2');
-        // Speed up music to 1.2x
-        backgroundMusic.playbackRate = 1.2;
-    } else if (newLevel === 3) {
-        body.classList.remove('level2');
-        gameDiv.classList.remove('level2');
-        body.classList.add('level3');
-        gameDiv.classList.add('level3');
-        // Speed up music to 1.5x
-        backgroundMusic.playbackRate = 1.5;
     }
 }
 

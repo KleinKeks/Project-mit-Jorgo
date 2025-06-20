@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Parkour-Runner</title>#
-    <link rel="stylesheet" href="game.css">
-    <script src="game.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Dino Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Parkour-Runner</h1>  
-<canvas width=1280 height=720 id="game-canvas" ></canvas>  
+    <div class="game-container" id="gameContainer">
+        <div class="instructions">
+            SPACE = Jump | ↓ = Duck
+        </div>
+        <div class="score" id="score">HI 00000 00000</div>
+        <div class="dino" id="dino"></div>
+        <div class="ground"></div>
+        
+        <div class="start-message" id="startMessage">
+            <h2>🦕 DINO RUN</h2>
+            <p>Press SPACE to start</p>
+        </div>
+        
+        <div class="game-over" id="gameOver">
+            <h2>GAME OVER</h2>
+            <p>Your Score: <span id="finalScore">0</span></p>
+            <button class="restart-btn" onclick="restartGame()">RESTART</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

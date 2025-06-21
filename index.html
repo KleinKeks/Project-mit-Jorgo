@@ -12,6 +12,23 @@
         <h2>Wir präsentieren hier unser Infoprojekt</h2> <!-- Die kleinere Unterüberschrift -->
     </header> <!-- Ende des Kopfbereichs -->
 
+    <!-- Audio-Elemente für Hintergrundmusik und Klick-Sound -->
+    <audio id="background-music" loop> <!-- Hintergrundmusik die sich wiederholt -->
+        <source src="bg2.mp3" type="audio/mpeg"> <!-- MP3-Datei -->
+        <source src="bg2.ogg" type="audio/ogg"> <!-- OGG-Datei als Alternative -->
+        Dein Browser unterstützt keine Audio-Wiedergabe. <!-- Fallback-Text -->
+    </audio>
+    
+    <audio id="click-sound" preload="auto"> <!-- Klick-Sound der sofort verfügbar ist -->
+        <source src="click.mp3" type="audio/mpeg"> <!-- MP3-Datei -->
+        <source src="click.ogg" type="audio/ogg"> <!-- OGG-Datei als Alternative -->
+    </audio>
+
+    <!-- Musik-Kontroll-Button -->
+    <div id="music-control"> <!-- Container für den Musik-Button -->
+        <button id="music-toggle">🎵 Musik</button> <!-- Button zum Ein/Ausschalten der Musik -->
+    </div>
+
     <main> <!-- Der Hauptinhalt der Seite -->
         <nav> <!-- Navigation - hier stehen die Buttons -->
             <a href='game.html'>Parkour runner</a> <!-- Button 1: führt zu game.html -->

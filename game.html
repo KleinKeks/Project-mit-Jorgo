@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <button class="back-button" onclick="goHome()">← Zurück zum Menü</button>
+    </div>
+
     <div class="game">
         <div class="dino" id="dino"></div>
         <div class="cactus" id="cactus"></div>
@@ -15,6 +20,7 @@
         <div class="game-over" id="gameOver">
             <h2>Haha voll der Noob</h2>
             <button onclick="restartGame()">Probiere es nochmal</button>
+            <button onclick="goHome()" class="home-button">Zum Hauptmenü</button>
         </div>
     </div>
 

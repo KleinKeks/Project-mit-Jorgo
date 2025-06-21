@@ -38,40 +38,6 @@ header h2 {
     opacity: 0.9; /* Leicht durchsichtig (90% sichtbar) */
 }
 
-/* Styling für den Musik-Kontroll-Button */
-#music-control {
-    position: fixed; /* Bleibt immer an der gleichen Stelle beim Scrollen */
-    top: 20px; /* 20px vom oberen Bildschirmrand */
-    right: 20px; /* 20px vom rechten Bildschirmrand */
-    z-index: 1000; /* Liegt über allen anderen Elementen */
-}
-
-/* Der Musik-Button selbst */
-#music-toggle {
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.9), rgba(255, 215, 0, 0.9)); /* Farbverlauf wie die anderen Buttons */
-    color: white; /* Weiße Schrift */
-    border: none; /* Kein Rahmen */
-    padding: 10px 20px; /* Innenabstand: 10px oben/unten, 20px links/rechts */
-    border-radius: 25px; /* Stark abgerundete Ecken */
-    font-size: 1em; /* Normale Schriftgröße */
-    font-weight: bold; /* Fettschrift */
-    cursor: pointer; /* Mauszeiger wird zur Hand */
-    transition: all 0.3s ease; /* Sanfte Übergänge */
-    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.3); /* Schatten */
-}
-
-/* Musik-Button beim Hovern (Maus drüber) */
-#music-toggle:hover {
-    transform: scale(1.1); /* Wird 10% größer */
-    box-shadow: 0 6px 24px rgba(220, 20, 60, 0.5); /* Stärkerer Schatten */
-}
-
-/* Wenn die Musik ausgeschaltet ist */
-#music-toggle.paused {
-    background: linear-gradient(135deg, rgba(100, 100, 100, 0.9), rgba(150, 150, 150, 0.9)); /* Grauer Farbverlauf */
-    opacity: 0.7; /* Leicht durchsichtig */
-}
-
 /* Container für den Hauptinhalt - zentriert alles */
 main {
     display: flex; /* Verwendet Flexbox für Layout */

@@ -9,7 +9,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background: linear-gradient(135deg, #1a0000, #330000, #1a0000);
-    color: #008cff;
+    color: #ffd700;
     min-height: 100vh;
 }
 
@@ -60,6 +60,7 @@ nav a {
     margin: 0 10px;
     position: relative;
     transition: all 0.4s ease;
+    transform-origin: center;
 }
 
 /* Button background effect */
@@ -80,23 +81,95 @@ nav a::before {
     box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
 }
 
-/* Hover effect - expand up and down */
+/* Glowing ring effect */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    z-index: -2;
+}
+
+/* Hover effect - scale up with cool effects */
 nav a:hover {
     color: white;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    transform: scale(1.2);
+    z-index: 20;
 }
 
 nav a:hover::before {
-    width: 100%;
-    height: calc(100vh - 180px); /* Full height minus header */
-    top: calc(-140px + 50%); /* Move up to header bottom */
-    border-radius: 15px 15px 0 0;
+    width: 110%;
+    height: 100%;
+    border-radius: 20px;
     background: linear-gradient(135deg, 
-        rgba(220, 20, 60, 0.9), 
-        rgba(255, 215, 0, 0.9));
+        rgba(220, 20, 60, 0.95), 
+        rgba(255, 215, 0, 0.95),
+        rgba(255, 69, 0, 0.9));
     box-shadow: 
-        0 0 50px rgba(220, 20, 60, 0.6),
-        0 0 100px rgba(255, 215, 0, 0.3);
+        0 0 30px rgba(220, 20, 60, 0.8),
+        0 0 60px rgba(255, 215, 0, 0.6),
+        0 0 90px rgba(255, 69, 0, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+    animation: pulse 1.5s infinite;
+}
+
+nav a:hover::after {
+    width: 150%;
+    height: 150%;
+    border: 3px solid rgba(255, 215, 0, 0.6);
+    animation: rotate 3s linear infinite;
+}
+
+/* Pulse animation for background */
+@keyframes pulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Rotating ring animation */
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Particle effect container */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 30;
+    animation: sparkle 0.8s ease-out forwards;
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(360deg) translateY(-20px);
+    }
 }
 
 /* Mobile responsive */
@@ -116,8 +189,7 @@ nav a:hover::before {
         font-size: 2.2em;
     }
     
-    nav a:hover::before {
-        height: calc(100vh - 250px);
-        top: calc(-200px + 50%);
+    nav a:hover {
+        transform: scale(1.1);
     }
 }

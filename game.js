@@ -81,9 +81,11 @@ function restartGame() {
     scoreElement.textContent = 'Score: 0';
     gameOverElement.style.display = 'none';
     
-    // Reset cactus animation properly
-    cactus.style.animationPlayState = 'running';
+    // Reset cactus position and animation
+    cactus.style.animation = 'none';
+    cactus.offsetHeight; // Force reflow
     cactus.style.animationDuration = currentSpeed + 's';
+    cactus.style.animation = 'moveCactus ' + currentSpeed + 's linear infinite';
     
     // Restart background music
     backgroundMusic.currentTime = 0; // Reset to beginning

@@ -1,153 +1,153 @@
-/* Allgemeine Einstellungen für alle Elemente auf der Seite */
+/* Basic setup - applies to everything */
 * {
-    margin: 0; /* Entfernt alle automatischen Außenabstände */
-    padding: 0; /* Entfernt alle automatischen Innenabstände */
-    box-sizing: border-box; /* Macht Größenberechnungen einfacher */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Styling für den gesamten Seitenhintergrund */
+/* Body styling - the main background */
 body {
-    font-family: Arial, sans-serif; /* Schriftart für die ganze Seite */
-    text-align: center; /* Zentriert allen Text */
-    background: linear-gradient(135deg, #1a0000, #330000, #1a0000); /* Farbverlauf von dunkelrot zu rot */
-    color: #ffd700; /* Textfarbe ist golden */
-    min-height: 100vh; /* Seite ist mindestens so hoch wie der Bildschirm */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #1a0000, #330000, #1a0000);
+    color: #ffd700;
+    min-height: 100vh;
 }
 
-/* Styling für den Header (Überschriftenbereich) */
+/* Header styling - the top section */
 header {
-    padding: 40px 20px; /* Innenabstand: 40px oben/unten, 20px links/rechts */
-    background: rgba(26, 0, 0, 0.8); /* Halbtransparenter dunkelroter Hintergrund */
-    border-bottom: 2px solid rgba(255, 215, 0, 0.2); /* Goldene Linie am unteren Rand */
+    padding: 40px 20px;
+    background: rgba(26, 0, 0, 0.8);
+    border-bottom: 2px solid rgba(255, 215, 0, 0.2);
 }
 
-/* Styling für die Hauptüberschrift (h1) */
+/* Main title */
 header h1 {
-    font-size: 3em; /* Schriftgröße: 3-mal so groß wie normal */
-    font-weight: bold; /* Fettschrift */
-    background: linear-gradient(45deg, #ffd700, #ffb347, #dc143c); /* Farbverlauf von gold zu orange zu rot */
-    -webkit-background-clip: text; /* Macht den Farbverlauf als Textfarbe sichtbar */
-    -webkit-text-fill-color: transparent; /* Macht den Text durchsichtig für den Verlauf */
-    margin-bottom: 20px; /* Abstand nach unten: 20px */
+    font-size: 3em;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ffd700, #ffb347, #dc143c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
 }
 
-/* Styling für die Unterüberschrift (h2) */
+/* Subtitle */
 header h2 {
-    font-size: 1.5em; /* Schriftgröße: 1,5-mal so groß wie normal */
-    color: #ffd700; /* Goldene Textfarbe */
-    opacity: 0.9; /* Leicht durchsichtig (90% sichtbar) */
+    font-size: 1.5em;
+    color: #ffd700;
+    opacity: 0.9;
 }
 
-/* Container für den Hauptinhalt - zentriert alles */
+/* Main content container - centers everything */
 main {
-    display: flex; /* Verwendet Flexbox für Layout */
-    justify-content: center; /* Zentriert horizontal */
-    align-items: center; /* Zentriert vertikal */
-    min-height: 60vh; /* Mindesthöhe: 60% der Bildschirmhöhe */
-    padding: 40px 20px; /* Innenabstand: 40px oben/unten, 20px links/rechts */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
 }
 
-/* Container für die Navigation (die Buttons) */
+/* Navigation container - holds the buttons */
 nav {
-    display: flex; /* Verwendet Flexbox für Layout */
-    gap: 30px; /* Abstand zwischen den Buttons: 30px */
-    justify-content: center; /* Zentriert die Buttons horizontal */
-    align-items: center; /* Zentriert die Buttons vertikal */
-    flex-wrap: wrap; /* Buttons können in die nächste Zeile umbrechen */
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-/* Styling für jeden Button (nav a) */
+/* Button styling */
 nav a {
-    display: block; /* Button nimmt ganzen verfügbaren Platz ein */
-    padding: 20px 40px; /* Innenabstand: 20px oben/unten, 40px links/rechts */
-    text-decoration: none; /* Entfernt Unterstrich von Links */
-    color: #ffd700; /* Goldene Textfarbe */
-    font-size: 1.5em; /* Schriftgröße: 1,5-mal so groß wie normal */
-    font-weight: bold; /* Fettschrift */
-    position: relative; /* Ermöglicht absolute Positionierung von Kindelementen */
-    transition: all 0.3s ease; /* Sanfte Übergänge für alle Änderungen in 0,3 Sekunden */
-    border-radius: 15px; /* Abgerundete Ecken mit 15px Radius */
-    min-width: 200px; /* Mindestbreite: 200px */
+    display: block;
+    padding: 20px 40px;
+    text-decoration: none;
+    color: #ffd700;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    min-width: 200px;
 }
 
-/* Hintergrund-Effekt für die Buttons (das farbige Rechteck) */
+/* Button background - the colored rectangle behind text */
 nav a::before {
-    content: ""; /* Leerer Inhalt (unsichtbares Element) */
-    position: absolute; /* Absolute Positionierung über dem Button */
-    left: 0; /* Beginnt am linken Rand */
-    top: 0; /* Beginnt am oberen Rand */
-    width: 100%; /* Volle Breite des Buttons */
-    height: 100%; /* Volle Höhe des Buttons */
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.8), rgba(255, 215, 0, 0.8)); /* Farbverlauf von rot zu gold, halbtransparent */
-    border-radius: 15px; /* Abgerundete Ecken mit 15px Radius */
-    z-index: -1; /* Liegt hinter dem Text */
-    transition: all 0.3s ease; /* Sanfte Übergänge für alle Änderungen in 0,3 Sekunden */
-    box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3); /* Schatten: 8px nach unten, 32px Unschärfe, rötlich */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.8), rgba(255, 215, 0, 0.8));
+    border-radius: 15px;
+    z-index: -1;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
 }
 
-/* Was passiert wenn die Maus über einen Button bewegt wird */
+/* Hover effect - what happens when you move mouse over button */
 nav a:hover {
-    color: white; /* Textfarbe wird weiß */
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Goldener Leuchteffekt um den Text */
-    transform: scale(1.1); /* Button wird 10% größer */
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    transform: scale(1.1);
 }
 
-/* Hintergrund-Effekt beim Hovern (Maus über Button) */
+/* Hover background effect */
 nav a:hover::before {
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.95), rgba(255, 215, 0, 0.95)); /* Farbverlauf wird intensiver */
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.95), rgba(255, 215, 0, 0.95));
     box-shadow: 
-        0 0 30px rgba(220, 20, 60, 0.8), /* Roter Leuchteffekt */
-        0 0 60px rgba(255, 215, 0, 0.6); /* Goldener Leuchteffekt */
-    animation: glow 1.5s infinite; /* Startet die "glow"-Animation, 1,5 Sekunden, unendlich */
+        0 0 30px rgba(220, 20, 60, 0.8),
+        0 0 60px rgba(255, 215, 0, 0.6);
+    animation: glow 1.5s infinite;
 }
 
-/* Animation für den Leuchteffekt */
+/* Glow animation */
 @keyframes glow {
-    0%, 100% { opacity: 1; } /* Am Anfang und Ende: voll sichtbar */
-    50% { opacity: 0.8; } /* In der Mitte: 80% sichtbar (pulsiert) */
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
-/* Styling für die Funken-Partikel */
+/* Sparkle particles */
 .sparkle {
-    position: absolute; /* Absolute Positionierung auf der Seite */
-    width: 4px; /* Breite: 4 Pixel */
-    height: 4px; /* Höhe: 4 Pixel */
-    background: #ffd700; /* Goldene Farbe */
-    border-radius: 50%; /* Macht es rund (Kreis) */
-    pointer-events: none; /* Maus kann nicht darauf klicken */
-    z-index: 100; /* Liegt über allen anderen Elementen */
-    animation: sparkle-move 0.8s ease-out forwards; /* Startet die "sparkle-move"-Animation */
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100;
+    animation: sparkle-move 0.8s ease-out forwards;
 }
 
-/* Animation für die Funken */
+/* Sparkle animation */
 @keyframes sparkle-move {
-    0% { /* Am Anfang */
-        opacity: 1; /* Voll sichtbar */
-        transform: scale(0); /* Größe 0 (unsichtbar klein) */
+    0% {
+        opacity: 1;
+        transform: scale(0);
     }
-    50% { /* In der Mitte */
-        opacity: 1; /* Voll sichtbar */
-        transform: scale(1); /* Normale Größe */
+    50% {
+        opacity: 1;
+        transform: scale(1);
     }
-    100% { /* Am Ende */
-        opacity: 0; /* Unsichtbar */
-        transform: scale(0) translateY(-30px); /* Größe 0 und 30px nach oben bewegt */
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(-30px);
     }
 }
 
-/* Spezielle Einstellungen für Handys (kleine Bildschirme) */
+/* Mobile phones - smaller screens */
 @media (max-width: 768px) {
-    nav { /* Navigation */
-        flex-direction: column; /* Buttons untereinander statt nebeneinander */
-        gap: 20px; /* Abstand zwischen Buttons: 20px */
+    nav {
+        flex-direction: column;
+        gap: 20px;
     }
     
-    nav a { /* Buttons */
-        min-width: 250px; /* Mindestbreite: 250px */
-        font-size: 1.3em; /* Etwas kleinere Schrift */
+    nav a {
+        min-width: 250px;
+        font-size: 1.3em;
     }
     
-    header h1 { /* Hauptüberschrift */
-        font-size: 2.2em; /* Kleinere Schriftgröße für Handys */
+    header h1 {
+        font-size: 2.2em;
     }
 }

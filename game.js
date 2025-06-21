@@ -11,6 +11,7 @@ let score = 0;
 let isJumping = false;
 let gameRunning = true;
 let musicStarted = false;
+let currentSpeed = 2; // Track current animation duration
 
 // Listen for spacebar press
 document.addEventListener('keydown', function(event) {
@@ -76,15 +77,13 @@ function gameOver() {
 function restartGame() {
     gameRunning = true;
     score = 0;
+    currentSpeed = 2; // Reset speed to original
     scoreElement.textContent = 'Score: 0';
     gameOverElement.style.display = 'none';
     
-    // Reset cactus position and speed
-    cactus.style.animation = 'none';
-    cactus.style.animationDuration = '2s'; // Reset to original speed
-    setTimeout(() => {
-        cactus.style.animation = 'moveCactus 2s linear infinite';
-    }, 10);
+    // Reset cactus animation properly
+    cactus.style.animationPlayState = 'running';
+    cactus.style.animationDuration = currentSpeed + 's';
     
     // Restart background music
     backgroundMusic.currentTime = 0; // Reset to beginning
@@ -110,10 +109,10 @@ function updateScore() {
 function speedUpGame() {
     // Calculate new speed (gets faster every 100 points)
     const speedLevel = Math.floor(score / 100);
-    const newDuration = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
+    currentSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
     
-    // Apply new speed to cactus
-    cactus.style.animationDuration = newDuration + 's';
+    // Apply new speed to cactus without resetting position
+    cactus.style.animationDuration = currentSpeed + 's';
 }
 
 // Game loop - runs every 100ms

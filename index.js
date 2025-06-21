@@ -1,43 +1,51 @@
-// Wait for page to load completely
+// Warte bis die komplette Webseite geladen ist
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all the buttons
+    
+    // Finde alle Buttons auf der Seite (alle <a> Tags in der Navigation)
     const buttons = document.querySelectorAll('nav a');
     
-    // Add effects to each button
+    // Gehe durch jeden Button und füge Effekte hinzu
     buttons.forEach(button => {
-        // When mouse enters button - create sparkles
+        
+        // Wenn die Maus über einen Button bewegt wird
         button.addEventListener('mouseenter', function() {
-            createSparkles(this);
+            createSparkles(this); // Erstelle Funken für diesen Button
         });
     });
     
-    // Function to create sparkle effect
+    // Funktion um Funken zu erstellen
     function createSparkles(button) {
-        // Create 4 sparkles around the button
+        
+        // Erstelle 4 Funken rund um den Button
         for (let i = 0; i < 4; i++) {
+            
+            // Warte etwas zwischen jedem Funken (i * 150 = 0, 150, 300, 450 Millisekunden)
             setTimeout(() => {
-                // Create sparkle element
+                
+                // Erstelle ein neues HTML-Element für den Funken
                 const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
+                sparkle.className = 'sparkle'; // Gib ihm die CSS-Klasse "sparkle"
                 
-                // Get button position
+                // Finde heraus wo der Button auf der Seite ist
                 const rect = button.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
+                const centerX = rect.left + rect.width / 2; // Mitte des Buttons horizontal
+                const centerY = rect.top + rect.height / 2; // Mitte des Buttons vertikal
                 
-                // Position sparkle randomly around button
-                const randomX = centerX + (Math.random() - 0.5) * rect.width;
-                const randomY = centerY + (Math.random() - 0.5) * rect.height;
+                // Setze den Funken an eine zufällige Position um den Button herum
+                const randomX = centerX + (Math.random() - 0.5) * rect.width; // Zufällige X-Position
+                const randomY = centerY + (Math.random() - 0.5) * rect.height; // Zufällige Y-Position
                 
-                sparkle.style.left = randomX + 'px';
-                sparkle.style.top = randomY + 'px';
+                // Setze die Position des Funkens
+                sparkle.style.left = randomX + 'px'; // Horizontale Position
+                sparkle.style.top = randomY + 'px'; // Vertikale Position
                 
-                // Add sparkle to page
+                // Füge den Funken zur Webseite hinzu
                 document.body.appendChild(sparkle);
                 
-                // Remove sparkle after animation (800ms)
+                // Entferne den Funken nach 800 Millisekunden (0,8 Sekunden)
                 setTimeout(() => sparkle.remove(), 800);
-            }, i * 150); // Delay each sparkle by 150ms
+                
+            }, i * 150); // Verzögerung für jeden Funken
         }
     }
 });

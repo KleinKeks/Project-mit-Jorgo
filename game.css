@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background: lightblue;
+    background: #ffd700;
     font-family: Arial, sans-serif;
 }
 
@@ -10,7 +10,7 @@ body {
     background: white;
     margin: 100px auto;
     position: relative;
-    border: 2px solid black;
+    border: 2px solid #dc143c;
 }
 
 .dino {

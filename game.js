@@ -13,20 +13,9 @@ let gameRunning = true;
 let musicStarted = false;
 let currentSpeed = 2; // Track current animation duration
 
-// Function to go back to home screen
-function goHome() {
-    // Stop all sounds
-    backgroundMusic.pause();
-    gameOverSound.pause();
-    
-    // Navigate back to index.html (adjust the path if needed)
-    window.location.href = 'index.html';
-}
-
-// Listen for spacebar press and touch events
+// Listen for spacebar press
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
-        event.preventDefault(); // Prevent page scrolling
         // Start background music on first interaction
         if (!musicStarted) {
             startBackgroundMusic();
@@ -34,17 +23,6 @@ document.addEventListener('keydown', function(event) {
         }
         jump();
     }
-});
-
-// Touch support for mobile
-document.addEventListener('touchstart', function(event) {
-    event.preventDefault();
-    // Start background music on first interaction
-    if (!musicStarted) {
-        startBackgroundMusic();
-        musicStarted = true;
-    }
-    jump();
 });
 
 // Start background music
@@ -74,12 +52,9 @@ function checkCollision() {
     const dinoRect = dino.getBoundingClientRect();
     const cactusRect = cactus.getBoundingClientRect();
     
-    // More precise collision detection
-    const collisionBuffer = 10; // Small buffer to make game more forgiving
-    
-    if (dinoRect.right > cactusRect.left + collisionBuffer && 
-        dinoRect.left < cactusRect.right - collisionBuffer && 
-        dinoRect.bottom > cactusRect.top + collisionBuffer) {
+    if (dinoRect.right > cactusRect.left && 
+        dinoRect.left < cactusRect.right && 
+        dinoRect.bottom > cactusRect.top) {
         gameOver();
     }
 }
@@ -111,7 +86,6 @@ function restartGame() {
     cactus.offsetHeight; // Force reflow
     cactus.style.animationDuration = currentSpeed + 's';
     cactus.style.animation = 'moveCactus ' + currentSpeed + 's linear infinite';
-    cactus.style.animationPlayState = 'running';
     
     // Restart background music
     backgroundMusic.currentTime = 0; // Reset to beginning
@@ -139,32 +113,12 @@ function speedUpGame() {
     const speedLevel = Math.floor(score / 100);
     currentSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
     
-    // Apply new speed
+    // Get current animation progress
+    const computedStyle = window.getComputedStyle(cactus);
+    const currentTransform = computedStyle.transform;
+    
+    // Apply new speed while preserving position
     cactus.style.animationDuration = currentSpeed + 's';
-}
-
-// Add instructions when game starts
-function addInstructions() {
-    if (!document.querySelector('.instructions')) {
-        const instructions = document.createElement('div');
-        instructions.className = 'instructions';
-        instructions.textContent = 'Drücke LEERTASTE oder berühre den Bildschirm zum Springen!';
-        document.querySelector('.game').appendChild(instructions);
-        
-        // Remove instructions after first jump
-        const removeInstructions = () => {
-            if (instructions && instructions.parentNode) {
-                instructions.parentNode.removeChild(instructions);
-            }
-            document.removeEventListener('keydown', removeInstructions);
-            document.removeEventListener('touchstart', removeInstructions);
-        };
-        
-        setTimeout(() => {
-            document.addEventListener('keydown', removeInstructions);
-            document.addEventListener('touchstart', removeInstructions);
-        }, 100);
-    }
 }
 
 // Game loop - runs every 100ms
@@ -174,15 +128,3 @@ setInterval(() => {
         updateScore();
     }
 }, 100);
-
-// Initialize game
-window.addEventListener('load', () => {
-    addInstructions();
-});
-
-// Prevent space bar from scrolling the page
-window.addEventListener('keydown', function(e) {
-    if(e.keyCode === 32 && e.target === document.body) {
-        e.preventDefault();
-    }
-});

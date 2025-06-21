@@ -1,255 +1,81 @@
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
+    margin: 0;
+    background: #ffd700;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1a0000, #330000, #1a0000);
-    color: #ffd700;
-    min-height: 100vh;
-    overflow: hidden; /* Prevent scrolling during game */
 }
 
-/* Back Button Styling */
-.back-button-container {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-}
-
-.back-button {
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.9), rgba(255, 215, 0, 0.9));
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.3);
-}
-
-.back-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(220, 20, 60, 0.5);
-    background: linear-gradient(135deg, rgba(220, 20, 60, 1), rgba(255, 215, 0, 1));
-}
-
-/* Game Container */
 .game {
-    width: 100vw;
-    height: 100vh;
+    width: 800px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.137);
+    margin: 100px auto;
     position: relative;
-    background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 70%, #228B22 100%);
-    overflow: hidden;
+    border: 2px solid #dc143c;
 }
 
-/* Dino Styling */
 .dino {
-    width: 60px;
-    height: 60px;
-    background: #228B22;
+    width: 50px;
+    height: 50px;
+    background: white;
     position: absolute;
-    bottom: 100px;
-    left: 100px;
+    bottom: 0;
+    left: 50px;
     border-radius: 10px;
-    transition: all 0.1s ease;
 }
 
-.dino::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    background: #228B22;
-    border-radius: 50%;
-}
-
-.dino::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 35px;
-    width: 15px;
-    height: 25px;
-    background: #228B22;
-    border-radius: 5px;
-}
-
-/* Jump Animation */
 .dino.jump {
-    animation: jump 0.8s ease-in-out;
+    animation: jump 0.8s;
 }
 
 @keyframes jump {
-    0%, 100% { bottom: 100px; }
-    50% { bottom: 200px; }
+    0% { bottom: 0; }
+    50% { bottom: 100px; }
+    100% { bottom: 0; }
 }
 
-/* Cactus Styling */
 .cactus {
-    width: 40px;
-    height: 80px;
-    background: #228B22;
+    width: 30px;
+    height: 50px;
+    background: black;
     position: absolute;
-    bottom: 100px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     border-radius: 5px;
     animation: moveCactus 2s linear infinite;
 }
 
-.cactus::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: -15px;
-    width: 20px;
-    height: 30px;
-    background: #228B22;
-    border-radius: 3px;
-}
-
-.cactus::after {
-    content: '';
-    position: absolute;
-    top: 15px;
-    right: -15px;
-    width: 20px;
-    height: 35px;
-    background: #228B22;
-    border-radius: 3px;
-}
-
-/* Cactus Movement Animation */
 @keyframes moveCactus {
-    0% { right: -100px; }
-    100% { right: 100vw; }
+    0% { right: -30px; }
+    100% { right: 800px; }
 }
 
-/* Score Display */
 .score {
     position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 2em;
+    top: 20px;
+    left: 20px;
+    font-size: 20px;
     font-weight: bold;
-    color: #000;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Game Over Screen */
 .game-over {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    color: #ffd700;
-    padding: 40px;
-    border-radius: 20px;
     text-align: center;
+    background: white;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
     display: none;
-    border: 3px solid #ffd700;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
-.game-over h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #dc143c;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.game-over button {
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.9), rgba(255, 215, 0, 0.9));
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: green;
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 1.2em;
-    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.3);
-    margin: 10px;
-}
-
-.game-over button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(220, 20, 60, 0.5);
-}
-
-.home-button {
-    background: linear-gradient(135deg, rgba(60, 60, 60, 0.9), rgba(120, 120, 120, 0.9)) !important;
-}
-
-.home-button:hover {
-    background: linear-gradient(135deg, rgba(80, 80, 80, 0.9), rgba(140, 140, 140, 0.9)) !important;
-}
-
-/* Instructions */
-.instructions {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #000;
-    font-size: 1.2em;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 10px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .dino {
-        width: 50px;
-        height: 50px;
-        bottom: 80px;
-        left: 50px;
-    }
-    
-    .cactus {
-        width: 35px;
-        height: 70px;
-        bottom: 80px;
-    }
-    
-    .score {
-        font-size: 1.5em;
-        top: 20px;
-        right: 20px;
-        padding: 8px 16px;
-    }
-    
-    .game-over h2 {
-        font-size: 2em;
-    }
-    
-    .game-over button {
-        font-size: 1em;
-        padding: 12px 24px;
-    }
-    
-    .back-button {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
 }

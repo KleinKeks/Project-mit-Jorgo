@@ -1,105 +1,140 @@
 // Warte bis die komplette Webseite geladen ist
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Finde alle Audio-Elemente und Buttons
-    const backgroundMusic = document.getElementById('background-music'); // Hintergrundmusik
-    const musicToggle = document.getElementById('music-toggle'); // Musik-Kontroll-Button
-    const buttons = document.querySelectorAll('nav a'); // Alle Navigation-Buttons
+    // Finde alle wichtigen Elemente auf der Webseite
+    const hintergrundMusik = document.getElementById('background-music');
+    const musikButton = document.getElementById('music-toggle');
+    const navigationButtons = document.querySelectorAll('nav a');
     
-    // Musik-Lautstärke einstellen (30% = 0.3)
-    backgroundMusic.volume = 0.3; // Hintergrundmusik leiser machen
+    // Musik-Lautstärke auf 30% einstellen
+    hintergrundMusik.volume = 0.3;
     
-    // Variable um zu verfolgen ob Musik spielt
-    let isPlaying = false;
+    // Variable um zu wissen ob Musik läuft
+    let musikLaeuft = false;
     
-    // Starte Hintergrundmusik automatisch beim Laden der Seite
-    backgroundMusic.play().then(() => {
-        // Musik erfolgreich gestartet
-        musicToggle.textContent = '🎵 Musik'; // Button-Text setzen
-        musicToggle.classList.remove('paused'); // Stelle sicher dass grauen Look entfernt ist
-        isPlaying = true; // Status aktualisieren
-    }).catch(error => {
-        // Fehler beim Abspielen (Browser blockiert Auto-Play)
-        console.log('Musik konnte nicht automatisch gestartet werden:', error);
-        musicToggle.textContent = '🔇 Musik'; // Button zeigt "aus" an
-        musicToggle.classList.add('paused'); // CSS-Klasse für grauen Look
+    // Versuche Musik automatisch zu starten
+    musikAutomatischStarten();
+    
+    // Event-Listener für Musik-Button
+    musikButton.addEventListener('click', musikEinAusSchalten);
+    
+    // Event-Listener für alle Navigation-Buttons
+    navigationButtons.forEach(button => {
+        button.addEventListener('mouseenter', funkenEffektErstellen);
+        button.addEventListener('click', buttonGeklickt);
     });
     
-    // Musik-Kontroll-Button Event (Ein/Ausschalten)
-    musicToggle.addEventListener('click', function() {
-        if (isPlaying) {
-            // Musik ist an - schalte sie aus
-            backgroundMusic.pause(); // Musik pausieren
-            backgroundMusic.currentTime = 0; // Zurück zum Anfang
-            musicToggle.textContent = '🔇 Musik'; // Button-Text ändern
-            musicToggle.classList.add('paused'); // CSS-Klasse für grauen Look
-            isPlaying = false; // Status aktualisieren
-        } else {
-            // Musik ist aus - schalte sie an
-            backgroundMusic.play().then(() => {
+    // FUNKTIONEN (alle auf Deutsch benannt)
+    
+    // Funktion: Musik automatisch starten
+    function musikAutomatischStarten() {
+        hintergrundMusik.play()
+            .then(() => {
                 // Musik erfolgreich gestartet
-                musicToggle.textContent = '🎵 Musik'; // Button-Text ändern
-                musicToggle.classList.remove('paused'); // Grauen Look entfernen
-                isPlaying = true; // Status aktualisieren
-            }).catch(error => {
-                // Fehler beim Abspielen (Browser blockiert Auto-Play)
-                console.log('Musik konnte nicht automatisch gestartet werden:', error);
+                musikButtonAktualisieren(true);
+                musikLaeuft = true;
+                console.log('Musik wurde automatisch gestartet');
+            })
+            .catch(fehler => {
+                // Browser hat Auto-Play blockiert
+                musikButtonAktualisieren(false);
+                musikLaeuft = false;
+                console.log('Musik konnte nicht automatisch gestartet werden:', fehler);
             });
-        }
-    });
+    }
     
-    // Gehe durch jeden Navigation-Button und füge Effekte hinzu
-    buttons.forEach(button => {
-        
-        // Wenn die Maus über einen Button bewegt wird
-        button.addEventListener('mouseenter', function() {
-            createSparkles(this); // Erstelle Funken für diesen Button
-        });
-        
-        // Wenn auf einen Button geklickt wird (ohne Sound)
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Verhindere sofortiges Weiterleiten
-            
-            // Warte kurz und leite dann weiter (für visuellen Effekt)
-            setTimeout(() => {
-                window.location.href = this.href; // Gehe zur Zielseite
-            }, 150); // 150 Millisekunden warten
-        });
-    });
-    
-    // Funktion um Funken zu erstellen
-    function createSparkles(button) {
-        
-        // Erstelle 4 Funken rund um den Button
-        for (let i = 0; i < 4; i++) {
-            
-            // Warte etwas zwischen jedem Funken (i * 150 = 0, 150, 300, 450 Millisekunden)
-            setTimeout(() => {
-                
-                // Erstelle ein neues HTML-Element für den Funken
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle'; // Gib ihm die CSS-Klasse "sparkle"
-                
-                // Finde heraus wo der Button auf der Seite ist
-                const rect = button.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2; // Mitte des Buttons horizontal
-                const centerY = rect.top + rect.height / 2; // Mitte des Buttons vertikal
-                
-                // Setze den Funken an eine zufällige Position um den Button herum
-                const randomX = centerX + (Math.random() - 0.5) * rect.width; // Zufällige X-Position
-                const randomY = centerY + (Math.random() - 0.5) * rect.height; // Zufällige Y-Position
-                
-                // Setze die Position des Funkens
-                sparkle.style.left = randomX + 'px'; // Horizontale Position
-                sparkle.style.top = randomY + 'px'; // Vertikale Position
-                
-                // Füge den Funken zur Webseite hinzu
-                document.body.appendChild(sparkle);
-                
-                // Entferne den Funken nach 800 Millisekunden (0,8 Sekunden)
-                setTimeout(() => sparkle.remove(), 800);
-                
-            }, i * 150); // Verzögerung für jeden Funken
+    // Funktion: Musik ein- oder ausschalten
+    function musikEinAusSchalten() {
+        if (musikLaeuft) {
+            musikAusschalten();
+        } else {
+            musikEinschalten();
         }
     }
+    
+    // Funktion: Musik ausschalten
+    function musikAusschalten() {
+        hintergrundMusik.pause();
+        hintergrundMusik.currentTime = 0; // Zurück zum Anfang
+        musikButtonAktualisieren(false);
+        musikLaeuft = false;
+        console.log('Musik wurde ausgeschaltet');
+    }
+    
+    // Funktion: Musik einschalten
+    function musikEinschalten() {
+        hintergrundMusik.play()
+            .then(() => {
+                musikButtonAktualisieren(true);
+                musikLaeuft = true;
+                console.log('Musik wurde eingeschaltet');
+            })
+            .catch(fehler => {
+                console.log('Fehler beim Einschalten der Musik:', fehler);
+            });
+    }
+    
+    // Funktion: Musik-Button Text und Aussehen aktualisieren
+    function musikButtonAktualisieren(istAn) {
+        if (istAn) {
+            musikButton.textContent = '🎵 Musik';
+            musikButton.classList.remove('paused');
+        } else {
+            musikButton.textContent = '🔇 Musik';
+            musikButton.classList.add('paused');
+        }
+    }
+    
+    // Funktion: Funken-Effekt erstellen (wird bei Maus-über aufgerufen)
+    function funkenEffektErstellen() {
+        const button = this; // Der Button über dem die Maus ist
+        
+        // Erstelle 4 Funken mit Verzögerung
+        for (let i = 0; i < 4; i++) {
+            setTimeout(() => {
+                einenFunkenErstellen(button);
+            }, i * 150); // 0ms, 150ms, 300ms, 450ms Verzögerung
+        }
+    }
+    
+    // Funktion: Einen einzelnen Funken erstellen
+    function einenFunkenErstellen(button) {
+        // Neues HTML-Element für den Funken
+        const funke = document.createElement('div');
+        funke.className = 'sparkle';
+        
+        // Button-Position herausfinden
+        const buttonPosition = button.getBoundingClientRect();
+        const buttonMitteX = buttonPosition.left + buttonPosition.width / 2;
+        const buttonMitteY = buttonPosition.top + buttonPosition.height / 2;
+        
+        // Zufällige Position um den Button herum
+        const zufaelligeX = buttonMitteX + (Math.random() - 0.5) * buttonPosition.width;
+        const zufaelligeY = buttonMitteY + (Math.random() - 0.5) * buttonPosition.height;
+        
+        // Funken positionieren
+        funke.style.left = zufaelligeX + 'px';
+        funke.style.top = zufaelligeY + 'px';
+        
+        // Funken zur Seite hinzufügen
+        document.body.appendChild(funke);
+        
+        // Funken nach 800ms wieder entfernen
+        setTimeout(() => {
+            funke.remove();
+        }, 800);
+    }
+    
+    // Funktion: Was passiert wenn ein Button geklickt wird
+    function buttonGeklickt(event) {
+        event.preventDefault(); // Verhindere sofortiges Weiterleiten
+        
+        const button = this; // Der geklickte Button
+        
+        // Kurz warten, dann zur Zielseite gehen
+        setTimeout(() => {
+            window.location.href = button.href;
+        }, 150);
+    }
+    
 });

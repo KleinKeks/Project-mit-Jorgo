@@ -3,16 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Finde alle Audio-Elemente und Buttons
     const backgroundMusic = document.getElementById('background-music'); // Hintergrundmusik
-    const clickSound = document.getElementById('click-sound'); // Klick-Sound
     const musicToggle = document.getElementById('music-toggle'); // Musik-Kontroll-Button
     const buttons = document.querySelectorAll('nav a'); // Alle Navigation-Buttons
     
-    // Musik-Lautstärke einstellen (50% = 0.5)
+    // Musik-Lautstärke einstellen (30% = 0.3)
     backgroundMusic.volume = 0.3; // Hintergrundmusik leiser machen
-    clickSound.volume = 0.5; // Klick-Sound mittlere Lautstärke
     
     // Variable um zu verfolgen ob Musik spielt
     let isPlaying = false;
+    
+    // Starte Hintergrundmusik automatisch beim Laden der Seite
+    backgroundMusic.play().then(() => {
+        // Musik erfolgreich gestartet
+        musicToggle.textContent = '🎵 Musik'; // Button-Text setzen
+        musicToggle.classList.remove('paused'); // Stelle sicher dass grauen Look entfernt ist
+        isPlaying = true; // Status aktualisieren
+    }).catch(error => {
+        // Fehler beim Abspielen (Browser blockiert Auto-Play)
+        console.log('Musik konnte nicht automatisch gestartet werden:', error);
+        musicToggle.textContent = '🔇 Musik'; // Button zeigt "aus" an
+        musicToggle.classList.add('paused'); // CSS-Klasse für grauen Look
+    });
     
     // Musik-Kontroll-Button Event (Ein/Ausschalten)
     musicToggle.addEventListener('click', function() {
@@ -45,17 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
             createSparkles(this); // Erstelle Funken für diesen Button
         });
         
-        // Wenn auf einen Button geklickt wird
+        // Wenn auf einen Button geklickt wird (ohne Sound)
         button.addEventListener('click', function(e) {
             e.preventDefault(); // Verhindere sofortiges Weiterleiten
             
-            // Spiele Klick-Sound ab
-            clickSound.currentTime = 0; // Zurück zum Anfang (falls schon gespielt)
-            clickSound.play().catch(error => {
-                console.log('Klick-Sound konnte nicht gespielt werden:', error);
-            });
-            
-            // Warte kurz und leite dann weiter (damit Sound gespielt wird)
+            // Warte kurz und leite dann weiter (für visuellen Effekt)
             setTimeout(() => {
                 window.location.href = this.href; // Gehe zur Zielseite
             }, 150); // 150 Millisekunden warten

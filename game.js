@@ -35,7 +35,7 @@ function startBackgroundMusic() {
 
 // Jump function
 function jump() {
-    if (isJumping) return; // Don't jump if already jumping
+    if (isJumping || !gameRunning) return; // Don't jump if already jumping or game is over
     
     isJumping = true;
     dino.classList.add('jump');
@@ -113,7 +113,11 @@ function speedUpGame() {
     const speedLevel = Math.floor(score / 100);
     currentSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
     
-    // Apply new speed to cactus without resetting position
+    // Get current animation progress
+    const computedStyle = window.getComputedStyle(cactus);
+    const currentTransform = computedStyle.transform;
+    
+    // Apply new speed while preserving position
     cactus.style.animationDuration = currentSpeed + 's';
 }
 

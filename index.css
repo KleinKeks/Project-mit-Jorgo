@@ -1,10 +1,11 @@
-/* Basic setup */
+/* Basic setup - applies to everything */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body styling - the main background */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -13,16 +14,14 @@ body {
     min-height: 100vh;
 }
 
-/* Header styling */
+/* Header styling - the top section */
 header {
     padding: 40px 20px;
     background: rgba(26, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
     border-bottom: 2px solid rgba(255, 215, 0, 0.2);
-    position: relative;
-    z-index: 100;
 }
 
+/* Main title */
 header h1 {
     font-size: 3em;
     font-weight: bold;
@@ -32,164 +31,123 @@ header h1 {
     margin-bottom: 20px;
 }
 
+/* Subtitle */
 header h2 {
     font-size: 1.5em;
     color: #ffd700;
     opacity: 0.9;
 }
 
-/* Navigation buttons */
+/* Main content container - centers everything */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
+}
+
+/* Navigation container - holds the buttons */
 nav {
     display: flex;
-    justify-content: space-between;
-    margin: 40px 20px;
-    height: 100px;
-    position: relative;
-    z-index: 10;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
+/* Button styling */
 nav a {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    padding: 20px 40px;
     text-decoration: none;
     color: #ffd700;
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
-    margin: 0 10px;
     position: relative;
-    transition: all 0.4s ease;
-    transform-origin: center;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    min-width: 200px;
 }
 
-/* Button background effect */
+/* Button background - the colored rectangle behind text */
 nav a::before {
     content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 90%;
-    height: 80%;
-    background: linear-gradient(135deg, 
-        rgba(220, 20, 60, 0.8), 
-        rgba(255, 215, 0, 0.8));
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.8), rgba(255, 215, 0, 0.8));
     border-radius: 15px;
-    transform: translate(-50%, -50%);
-    transition: all 0.5s ease;
     z-index: -1;
+    transition: all 0.3s ease;
     box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
 }
 
-/* Glowing ring effect */
-nav a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.6s ease;
-    z-index: -2;
-}
-
-/* Hover effect - scale up with cool effects */
+/* Hover effect - what happens when you move mouse over button */
 nav a:hover {
     color: white;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    transform: scale(1.2);
-    z-index: 20;
+    transform: scale(1.1);
 }
 
+/* Hover background effect */
 nav a:hover::before {
-    width: 110%;
-    height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(135deg, 
-        rgba(220, 20, 60, 0.95), 
-        rgba(255, 215, 0, 0.95),
-        rgba(255, 69, 0, 0.9));
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.95), rgba(255, 215, 0, 0.95));
     box-shadow: 
         0 0 30px rgba(220, 20, 60, 0.8),
-        0 0 60px rgba(255, 215, 0, 0.6),
-        0 0 90px rgba(255, 69, 0, 0.4),
-        inset 0 0 20px rgba(255, 255, 255, 0.2);
-    animation: pulse 1.5s infinite;
+        0 0 60px rgba(255, 215, 0, 0.6);
+    animation: glow 1.5s infinite;
 }
 
-nav a:hover::after {
-    width: 150%;
-    height: 150%;
-    border: 3px solid rgba(255, 215, 0, 0.6);
-    animation: rotate 3s linear infinite;
+/* Glow animation */
+@keyframes glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
-/* Pulse animation for background */
-@keyframes pulse {
-    0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    50% { 
-        transform: translate(-50%, -50%) scale(1.05);
-        opacity: 0.9;
-    }
-}
-
-/* Rotating ring animation */
-@keyframes rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Particle effect container */
-.particle {
+/* Sparkle particles */
+.sparkle {
     position: absolute;
     width: 4px;
     height: 4px;
     background: #ffd700;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 30;
-    animation: sparkle 0.8s ease-out forwards;
+    z-index: 100;
+    animation: sparkle-move 0.8s ease-out forwards;
 }
 
-@keyframes sparkle {
+/* Sparkle animation */
+@keyframes sparkle-move {
     0% {
         opacity: 1;
-        transform: scale(0) rotate(0deg);
+        transform: scale(0);
     }
     50% {
         opacity: 1;
-        transform: scale(1) rotate(180deg);
+        transform: scale(1);
     }
     100% {
         opacity: 0;
-        transform: scale(0) rotate(360deg) translateY(-20px);
+        transform: scale(0) translateY(-30px);
     }
 }
 
-/* Mobile responsive */
+/* Mobile phones - smaller screens */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
         gap: 20px;
-        height: auto;
     }
     
     nav a {
-        margin: 0;
-        height: 80px;
+        min-width: 250px;
+        font-size: 1.3em;
     }
     
     header h1 {
         font-size: 2.2em;
-    }
-    
-    nav a:hover {
-        transform: scale(1.1);
     }
 }

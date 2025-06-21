@@ -1,39 +1,32 @@
-<!DOCTYPE html> <!-- Definiert, dass dies eine HTML5-Webseite ist -->
-<html lang="en"> <!-- Startet das HTML-Dokument, Sprache ist Englisch -->
-<head> <!-- Der Kopfbereich der Webseite (unsichtbar für Besucher) -->
-    <meta charset="UTF-8"> <!-- Zeichensatz UTF-8 für deutsche Umlaute -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Macht die Seite handyfreundlich -->
-    <link rel="stylesheet" href="./index.css"> <!-- Verbindet diese HTML-Datei mit der CSS-Datei -->
-    <title>Meine Webseite</title> <!-- Der Titel, der im Browser-Tab angezeigt wird -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Meine Webseite</title>
 </head>
-<body> <!-- Der sichtbare Inhalt der Webseite beginnt hier -->
-    <header> <!-- Der Kopfbereich der Seite (die Überschrift) -->
-        <h1>Sean und Jorgo's InfoPortal</h1> <!-- Die große Hauptüberschrift -->
-        <h2>Wir präsentieren hier unser Infoprojekt</h2> <!-- Die kleinere Unterüberschrift -->
-    </header> <!-- Ende des Kopfbereichs -->
+<body>
+    <header>
+        <h1>Sean und Jorgo's InfoPortal</h1>
+        <h2>Wir präsentieren hier unser Infoprojekt</h2>
+    </header>
 
-    <!-- Audio-Elemente für Hintergrundmusik und Klick-Sound -->
-    <audio id="background-music" loop> <!-- Hintergrundmusik die sich wiederholt -->
-        <source src="bg2.mp3" type="audio/mpeg"> <!-- MP3-Datei -->
+    <audio id="background-music" loop>
+        <source src="bg2.mp3" type="audio/mpeg">
     </audio>
-    
-    <audio id="click-sound" preload="auto"> <!-- Klick-Sound der sofort verfügbar ist -->
-        <source src="click.mp3" type="audio/mpeg"> <!-- MP3-Datei -->
-    </audio>
-
-    <!-- Musik-Kontroll-Button -->
-    <div id="music-control"> <!-- Container für den Musik-Button -->
-        <button id="music-toggle">🎵 Musik</button> <!-- Button zum Ein/Ausschalten der Musik -->
+    <div id="music-control">
+        <button id="music-toggle">🎵 Musik</button>
     </div>
 
-    <main> <!-- Der Hauptinhalt der Seite -->
-        <nav> <!-- Navigation - hier stehen die Buttons -->
-            <a href='game.html'>Parkour runner</a> <!-- Button 1: führt zu game.html -->
-            <a href='video.html'>Erklärvideo</a> <!-- Button 2: führt zu video.html -->
-            <a href='h5p.html'>Quiz</a> <!-- Button 3: führt zu h5p.html -->
-        </nav> <!-- Ende der Navigation -->
-    </main> <!-- Ende des Hauptinhalts -->
+    <main>
+        <nav>
+            <a href='game.html'>Parkour runner</a>
+            <a href='video.html'>Erklärvideo</a>
+            <a href='h5p.html'>Quiz</a>
+        </nav>
+    </main>
 
-    <script src="./index.js"></script> <!-- Verbindet diese HTML-Datei mit der JavaScript-Datei -->
-</body> <!-- Ende des sichtbaren Inhalts -->
-</html> <!-- Ende des HTML-Dokuments -->
+    <script src="./index.js"></script>
+</body>
+</html>

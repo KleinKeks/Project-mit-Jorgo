@@ -16,14 +16,31 @@ let currentSpeed = 2; // Track current animation duration
 // Listen for spacebar press
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
-        // Start background music on first interaction
-        if (!musicStarted) {
-            startBackgroundMusic();
-            musicStarted = true;
-        }
-        jump();
+        event.preventDefault(); // Prevent page scrolling
+        handleJumpInput();
     }
 });
+
+// Listen for click/touch events
+document.addEventListener('click', function(event) {
+    handleJumpInput();
+});
+
+// Listen for touch events (for better mobile support)
+document.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent default touch behavior
+    handleJumpInput();
+});
+
+// Handle jump input from any source
+function handleJumpInput() {
+    // Start background music on first interaction
+    if (!musicStarted) {
+        startBackgroundMusic();
+        musicStarted = true;
+    }
+    jump();
+}
 
 // Start background music
 function startBackgroundMusic() {

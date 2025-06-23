@@ -12,6 +12,7 @@ let isJumping = false;
 let gameRunning = true;
 let musicStarted = false;
 let currentSpeed = 2; // Track current animation duration
+let pendingSpeed = null; // Store speed changes to apply later
 
 // Listen for spacebar press
 document.addEventListener('keydown', function(event) {
@@ -95,14 +96,12 @@ function restartGame() {
     gameRunning = true;
     score = 0;
     currentSpeed = 2; // Reset speed to original
+    pendingSpeed = null; // Clear any pending speed changes
     scoreElement.textContent = 'Score: 0';
     gameOverElement.style.display = 'none';
     
     // Reset cactus position and animation
-    cactus.style.animation = 'none';
-    cactus.offsetHeight; // Force reflow
-    cactus.style.animationDuration = currentSpeed + 's';
-    cactus.style.animation = 'moveCactus ' + currentSpeed + 's linear infinite';
+    applyCactusSpeed();
     
     // Restart background music
     backgroundMusic.currentTime = 0; // Reset to beginning
@@ -126,14 +125,26 @@ function updateScore() {
 
 // Speed up the game
 function speedUpGame() {
+    // Calculate new speed (gets faster every 100 points)
     const speedLevel = Math.floor(score / 100);
-    const newSpeed = Math.max(0.8, 2 - (speedLevel * 0.2));
+    const newSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
     
-    // Store the new speed to apply on next cactus cycle
-    if (newSpeed !== currentSpeed) {
-        currentSpeed = newSpeed;
-        // Speed will be applied when cactus naturally resets
+    // Store the new speed to apply on next animation cycle
+    pendingSpeed = newSpeed;
+}
+
+// Apply pending speed change when cactus resets
+function applyCactusSpeed() {
+    if (pendingSpeed !== null) {
+        currentSpeed = pendingSpeed;
+        pendingSpeed = null;
     }
+    
+    // Reset cactus position and animation with current speed
+    cactus.style.animation = 'none';
+    cactus.offsetHeight; // Force reflow
+    cactus.style.animationDuration = currentSpeed + 's';
+    cactus.style.animation = 'moveCactus ' + currentSpeed + 's linear infinite';
 }
 
 // Game loop - runs every 100ms

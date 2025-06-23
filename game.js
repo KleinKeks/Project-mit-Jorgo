@@ -1,156 +1,158 @@
-// Get the game elements
 const dino = document.getElementById('dino');
-const cactus = document.getElementById('cactus');
-const scoreElement = document.getElementById('score');
-const gameOverElement = document.getElementById('gameOver');
-const backgroundMusic = document.getElementById('backgroundMusic');
-const gameOverSound = document.getElementById('gameOverSound');
+const kaktus = document.getElementById('cactus');
+const punkteAnzeige = document.getElementById('score');
+const spielEndeAnzeige = document.getElementById('gameOver');
+const hintergrundMusik = document.getElementById('backgroundMusic');
+const spielEndeSound = document.getElementById('gameOverSound');
 
-// Game variables
-let score = 0;
-let isJumping = false;
-let gameRunning = true;
-let musicStarted = false;
-let currentSpeed = 2; // Track current animation duration
-let pendingSpeed = null; // Store speed changes to apply later
+let punkte = 0;
+let springt = false;
+let spielLaeuft = true;
+let musikGestartet = false;
+let aktuelleGeschwindigkeit = 2;
+let wartendeGeschwindigkeit = null;
 
-// Listen for spacebar press
-document.addEventListener('keydown', function(event) {
-    if (event.code === 'Space') {
-        event.preventDefault(); // Prevent page scrolling
-        handleJumpInput();
+document.addEventListener('keydown', function(ereignis) {
+    if (ereignis.code === 'Space') {
+        ereignis.preventDefault(); // Verhindert Seitenscrollen bei Leertaste
+        sprungEingabeBehandeln();
     }
 });
 
-// Listen for click/touch events
-document.addEventListener('click', function(event) {
-    handleJumpInput();
+document.addEventListener('click', function(ereignis) {
+    sprungEingabeBehandeln();
 });
 
-// Listen for touch events (for better mobile support)
-document.addEventListener('touchstart', function(event) {
-    event.preventDefault(); // Prevent default touch behavior
-    handleJumpInput();
+// TouchStart für bessere Mobile-Unterstützung (reagiert schneller als Click)
+document.addEventListener('touchstart', function(ereignis) {
+    ereignis.preventDefault(); // Verhindert Zoom/Scroll auf Mobile
+    sprungEingabeBehandeln();
 });
 
-// Handle jump input from any source
-function handleJumpInput() {
-    // Start background music on first interaction
-    if (!musicStarted) {
-        startBackgroundMusic();
-        musicStarted = true;
+function sprungEingabeBehandeln() {
+    // Musik muss durch User-Interaktion gestartet werden (Browser-Sicherheit)
+    if (!musikGestartet) {
+        hintergrundMusikStarten();
+        musikGestartet = true;
     }
-    jump();
+    springen();
 }
 
-// Start background music
-function startBackgroundMusic() {
-    backgroundMusic.volume = 0.3; // Set volume to 30%
-    backgroundMusic.play().catch(e => {
-        console.log('Could not play background music:', e);
+function hintergrundMusikStarten() {
+    hintergrundMusik.volume = 0.3;
+    // .catch() fängt Fehler ab falls Browser Autoplay blockiert
+    hintergrundMusik.play().catch(fehler => {
+        console.log('Konnte Hintergrundmusik nicht abspielen:', fehler);
     });
 }
 
-// Jump function
-function jump() {
-    if (isJumping || !gameRunning) return; // Don't jump if already jumping or game is over
+function springen() {
+    // Guard Clause - verhindert mehrere Sprünge gleichzeitig
+    if (springt || !spielLaeuft) return;
     
-    isJumping = true;
+    springt = true;
     dino.classList.add('jump');
     
-    // Remove jump class after animation
+    // setTimeout führt Code nach bestimmter Zeit aus (hier 800ms) bestimmt wie lange er in der luft it
     setTimeout(() => {
         dino.classList.remove('jump');
-        isJumping = false;
+        springt = false;
     }, 800);
 }
 
-// Check for collisions
-function checkCollision() {
-    const dinoRect = dino.getBoundingClientRect();
-    const cactusRect = cactus.getBoundingClientRect();
+function kollisionPruefen() {
+    // getBoundingClientRect() gibt Position und Größe des Elements zurück
+    const dinoRechteck = dino.getBoundingClientRect();
+    const kaktusRechteck = kaktus.getBoundingClientRect();
     
-    if (dinoRect.right > cactusRect.left && 
-        dinoRect.left < cactusRect.right && 
-        dinoRect.bottom > cactusRect.top) {
-        gameOver();
+    // AABB Collision Detection (Axis-Aligned Bounding Box)
+    // Prüft ob zwei Rechtecke sich überlappen
+    if (dinoRechteck.right > kaktusRechteck.left && 
+        dinoRechteck.left < kaktusRechteck.right && 
+        dinoRechteck.bottom > kaktusRechteck.top) {
+        spielEnde();
     }
 }
 
-// Game over function
-function gameOver() {
-    gameRunning = false;
-    gameOverElement.style.display = 'block';
-    cactus.style.animationPlayState = 'paused';
+function spielEnde() {
+    spielLaeuft = false;
+    spielEndeAnzeige.style.display = 'block';
+    // animationPlayState pausiert CSS-Animation ohne Position zu ändern
+    kaktus.style.animationPlayState = 'paused';
     
-    // Stop background music and play game over sound
-    backgroundMusic.pause();
-    gameOverSound.volume = 0.5; // Set volume to 50%
-    gameOverSound.play().catch(e => {
-        console.log('Could not play game over sound:', e);
+    hintergrundMusik.pause();
+    spielEndeSound.volume = 0.5;
+    spielEndeSound.play().catch(fehler => {
+        console.log('Konnte Spiel-Ende-Sound nicht abspielen:', fehler);
     });
 }
 
-// Restart game function
-function restartGame() {
-    gameRunning = true;
-    score = 0;
-    currentSpeed = 2; // Reset speed to original
-    pendingSpeed = null; // Clear any pending speed changes
-    scoreElement.textContent = 'Score: 0';
-    gameOverElement.style.display = 'none';
+function spielNeustarten() {
+    spielLaeuft = true;
+    punkte = 0;
+    aktuelleGeschwindigkeit = 2;
+    wartendeGeschwindigkeit = null;
+    punkteAnzeige.textContent = 'Score: 0';
+    spielEndeAnzeige.style.display = 'none';
     
-    // Reset cactus position and animation
-    applyCactusSpeed();
+    kaktusGeschwindigkeitAnwenden();
     
-    // Restart background music
-    backgroundMusic.currentTime = 0; // Reset to beginning
-    backgroundMusic.play().catch(e => {
-        console.log('Could not restart background music:', e);
+    // currentTime = 0 setzt Audio an den Anfang zurück
+    hintergrundMusik.currentTime = 0;
+    hintergrundMusik.play().catch(fehler => {
+        console.log('Konnte Hintergrundmusik nicht neu starten:', fehler);
     });
 }
 
-// Update score
-function updateScore() {
-    if (gameRunning) {
-        score++;
-        scoreElement.textContent = 'Score: ' + score;
+function punkteAktualisieren() {
+    if (spielLaeuft) {
+        punkte++;
+        punkteAnzeige.textContent = 'Score: ' + punkte;
         
-        // Speed up cactus every 100 points
-        if (score % 100 === 0) {
-            speedUpGame();
+        // Modulo (%) gibt den Rest einer Division zurück
+        // 100 % 100 = 0, 200 % 100 = 0, etc.
+        if (punkte % 100 === 0) {
+            spielBeschleunigen();
         }
     }
 }
 
-// Speed up the game
-function speedUpGame() {
-    // Calculate new speed (gets faster every 100 points)
-    const speedLevel = Math.floor(score / 100);
-    const newSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
+function spielBeschleunigen() {
+    // Math.floor() rundet ab: 150/100 = 1.5 → 1
+    const geschwindigkeitsLevel = Math.floor(punkte / 100);
     
-    // Store the new speed to apply on next animation cycle
-    pendingSpeed = newSpeed;
+    // Math.max() verhindert dass Wert unter Minimum fällt
+    // Geschwindigkeit wird schneller (kleinere Zahl = schnellere Animation)
+    const neueGeschwindigkeit = Math.max(0.8, 2 - (geschwindigkeitsLevel * 0.2));
+    
+    // Speichern statt direkt anwenden verhindert Positions-Glitches
+    wartendeGeschwindigkeit = neueGeschwindigkeit;
 }
 
-// Apply pending speed change when cactus resets
-function applyCactusSpeed() {
-    if (pendingSpeed !== null) {
-        currentSpeed = pendingSpeed;
-        pendingSpeed = null;
+function kaktusGeschwindigkeitAnwenden() {
+    if (wartendeGeschwindigkeit !== null) {
+        aktuelleGeschwindigkeit = wartendeGeschwindigkeit;
+        wartendeGeschwindigkeit = null;
     }
     
-    // Reset cactus position and animation with current speed
-    cactus.style.animation = 'none';
-    cactus.offsetHeight; // Force reflow
-    cactus.style.animationDuration = currentSpeed + 's';
-    cactus.style.animation = 'moveCactus ' + currentSpeed + 's linear infinite';
+    // Animation komplett zurücksetzen (3-Schritt-Prozess):
+    kaktus.style.animation = 'none';           // 1. Animation stoppen
+    kaktus.offsetHeight;                       // 2. Browser-Reflow erzwingen
+    kaktus.style.animationDuration = aktuelleGeschwindigkeit + 's'; // 3a. Neue Dauer
+    kaktus.style.animation = 'moveCactus ' + aktuelleGeschwindigkeit + 's linear infinite'; // 3b. Neu starten
 }
 
-// Game loop - runs every 100ms
+// setInterval() führt Funktion wiederholt alle X Millisekunden aus
 setInterval(() => {
-    if (gameRunning) {
-        checkCollision();
-        updateScore();
+    if (spielLaeuft) {
+        kollisionPruefen();
+        punkteAktualisieren();
     }
-}, 100);
+}, 100); // Alle 100ms = 10 FPS
+
+// Für Animations-Ereignisse (manuell zu HTML hinzufügen):
+// kaktus.addEventListener('animationiteration', function() {
+//     if (spielLaeuft) {
+//         kaktusGeschwindigkeitAnwenden();
+//     }
+// });

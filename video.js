@@ -6,10 +6,10 @@ let isPlaying = false;
 window.addEventListener('DOMContentLoaded', () => {
   backgroundMusic.volume = 0.3;
   backgroundMusic.play().then(() => {
-    musicButton.textContent = '🔇 Musik';
+    musicButton.textContent = '🎵 Musik';
     isPlaying = true;
   }).catch(() => {
-    musicButton.textContent = '🎵 Musik';
+    musicButton.textContent = '🔇 Musik';
     isPlaying = false;
   });
 });
@@ -18,12 +18,12 @@ window.addEventListener('DOMContentLoaded', () => {
 musicButton.addEventListener('click', function () {
   if (isPlaying) {
     backgroundMusic.pause();
-    musicButton.textContent = '🎵 Musik';
+    musicButton.textContent = '🔇 Musik';
     isPlaying = false;
     backgroundMusic.currentTime = 0;
   } else {
     backgroundMusic.play().then(() => {
-      musicButton.textContent = '🔇 Musik';
+      musicButton.textContent = '🎵 Musik';
       isPlaying = true;
     }).catch(err => {
       console.error("Musik konnte nicht abgespielt werden:", err);

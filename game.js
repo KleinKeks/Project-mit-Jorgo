@@ -126,17 +126,14 @@ function updateScore() {
 
 // Speed up the game
 function speedUpGame() {
-    // Calculate new speed (gets faster every 100 points)
     const speedLevel = Math.floor(score / 100);
-    currentSpeed = Math.max(0.8, 2 - (speedLevel * 0.2)); // Minimum 0.8 seconds
+    const newSpeed = Math.max(0.8, 2 - (speedLevel * 0.2));
     
-    // Get current animation progress
-    const computedStyle = window.getComputedStyle(cactus);
-    const currentTransform = computedStyle.transform;
-    
-    // Apply new speed while preserving position
-    cactus.style.animation = 'none';
-    cactus.style.animationDuration = currentSpeed + 's';
+    // Store the new speed to apply on next cactus cycle
+    if (newSpeed !== currentSpeed) {
+        currentSpeed = newSpeed;
+        // Speed will be applied when cactus naturally resets
+    }
 }
 
 // Game loop - runs every 100ms

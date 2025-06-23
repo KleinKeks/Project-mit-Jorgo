@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #1a0000, #330000, #1a0000);
+  color: #ffd700;
+  min-height: 100vh;
+}
+
+header {
+  padding: 40px 20px;
+  background: rgba(26, 0, 0, 0.8);
+  border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+}
+
+header h1 {
+  font-size: 3em;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ffd700, #ffb347, #dc143c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+header h2 {
+  font-size: 1.5em;
+  color: #ffd700;
+  opacity: 0.9;
+}
+
+#music-control {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#music-toggle {
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.9), rgba(255, 215, 0, 0.9));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(220, 20, 60, 0.3);
+}
+
+#music-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(220, 20, 60, 0.5);
+}
+
+#music-toggle.paused {
+  background: linear-gradient(135deg, rgba(100, 100, 100, 0.9), rgba(150, 150, 150, 0.9));
+  opacity: 0.7;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.video-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.video-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(220, 20, 60, 0.4);
+}
+
+.video-container.centered {
+  grid-column: 2 / 3;
+}
+
+video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Video Titel beim Hover */
+.video-title {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffd700;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.video-container:hover .video-title {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-container.centered {
+    grid-column: auto;
+  }
+
+  header h1 {
+    font-size: 2.2em;
+  }
+}

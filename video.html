@@ -7,64 +7,67 @@
   <link rel="stylesheet" href="video.css" />
 </head>
 <body>
-  <div id="music-control">
-    <button id="music-toggle">🎵 Musik An/Aus</button>
-  </div>
+  <audio id="background-music" loop>
+        <source src="bg3.mp3" type="audio/mpeg">
+    </audio>
+    <div id="music-control">
+        <button id="music-toggle">🎵 Musik</button>
+    </div>
 
   <header>
     <h1>Video Galerie</h1>
-    <h2>Meine Video Sammlung</h2>
+    <h2>Erklärvideos</h2>
   </header>
 
   <main>
     <div class="video-grid">
       <div class="video-container">
         <video controls>
-          <source src="video1.mp4" type="video/mp4" />
+          <source src="IndexhtmlVID.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Mein erstes Video</div>
+        <div class="video-title">html der index datei</div>
       </div>
       
       <div class="video-container">
         <video controls>
-          <source src="video2.mp4" type="video/mp4" />
+          <source src="IndexCssVID.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Natur Dokumentation</div>
+        <div class="video-title">Css der index datei</div>
       </div>
       
       <div class="video-container">
         <video controls>
-          <source src="video3.mp4" type="video/mp4" />
+          <source src="IndexJSVID.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Technik Bewertung</div>
+        <div class="video-title">Js der index datei</div>
       </div>
       
       <div class="video-container">
         <video controls>
           <source src="video4.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Koch Tutorial</div>
+        <div class="video-title">html der game datei</div>
       </div>
       
       <div class="video-container">
         <video controls>
           <source src="video5.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Musik Video</div>
+        <div class="video-title">Css der game datei</div>
       </div>
       
       <div class="video-container">
         <video controls>
           <source src="video6.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Reise Vlog</div>
+        <div class="video-title">Js der game datei</div>
       </div>
       
       <div class="video-container centered">
         <video controls>
           <source src="video7.mp4" type="video/mp4" />
         </video>
-        <div class="video-title">Highlight: Besonderes Video</div>
+        <div class="video-title">h5p</div>
       </div>
     </div>
   </main>

@@ -1,53 +1,64 @@
-// Simple music toggle
-let isPlaying = false;
 const musicButton = document.getElementById('music-toggle');
+const backgroundMusic = document.getElementById('background-music');
+let isPlaying = false;
 
-musicButton.addEventListener('click', function() {
-  if (isPlaying) {
-    // Musik pausieren
-    musicButton.textContent = '🎵 Musik';
-    musicButton.classList.add('paused');
-    isPlaying = false;
-  } else {
-    // Musik abspielen
+// Musik automatisch versuchen zu starten (leise, wenn erlaubt)
+window.addEventListener('DOMContentLoaded', () => {
+  backgroundMusic.volume = 0.3;
+  backgroundMusic.play().then(() => {
     musicButton.textContent = '🔇 Musik';
-    musicButton.classList.remove('paused');
     isPlaying = true;
+  }).catch(() => {
+    musicButton.textContent = '🎵 Musik';
+    isPlaying = false;
+  });
+});
+
+// Musik-Button klickbar machen
+musicButton.addEventListener('click', function () {
+  if (isPlaying) {
+    backgroundMusic.pause();
+    musicButton.textContent = '🎵 Musik';
+    isPlaying = false;
+    backgroundMusic.currentTime = 0;
+  } else {
+    backgroundMusic.play().then(() => {
+      musicButton.textContent = '🔇 Musik';
+      isPlaying = true;
+    }).catch(err => {
+      console.error("Musik konnte nicht abgespielt werden:", err);
+    });
   }
 });
 
-// Stoppe andere Videos wenn eines abgespielt wird
+// Andere Videos pausieren, wenn eines spielt
 const videos = document.querySelectorAll('video');
 
 videos.forEach(video => {
-  video.addEventListener('play', function() {
-    // Pausiere alle anderen Videos
+  video.addEventListener('play', function () {
     videos.forEach(otherVideo => {
       if (otherVideo !== video) {
         otherVideo.pause();
       }
     });
-    
-    // Pausiere die Musik wenn ein Video startet
+
     if (isPlaying) {
+      backgroundMusic.pause();
       musicButton.textContent = '🎵 Musik';
-      musicButton.classList.add('paused');
       isPlaying = false;
     }
   });
 });
 
-// Einfache Hover-Effekte für Video-Container
+// Hover-Effekt für Videoboxen
 const videoContainers = document.querySelectorAll('.video-container');
 
 videoContainers.forEach(container => {
-  container.addEventListener('mouseenter', function() {
-    // Kleiner Hover-Effekt
+  container.addEventListener('mouseenter', function () {
     this.style.background = 'rgba(255, 255, 255, 0.15)';
   });
-  
-  container.addEventListener('mouseleave', function() {
-    // Zurück zum normalen Zustand
+
+  container.addEventListener('mouseleave', function () {
     this.style.background = 'rgba(255, 255, 255, 0.1)';
   });
 });

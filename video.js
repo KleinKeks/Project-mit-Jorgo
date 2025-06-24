@@ -19,11 +19,13 @@ musicButton.addEventListener('click', function () {
   if (isPlaying) {
     backgroundMusic.pause();
     musicButton.textContent = '🔇 Musik';
+    musicButton.classList.add('paused');
     isPlaying = false;
     backgroundMusic.currentTime = 0;
   } else {
     backgroundMusic.play().then(() => {
       musicButton.textContent = '🎵 Musik';
+      musicButton.classList.remove('paused');
       isPlaying = true;
     }).catch(err => {
       console.error("Musik konnte nicht abgespielt werden:", err);
@@ -44,13 +46,13 @@ videos.forEach(video => {
 
     if (isPlaying) {
       backgroundMusic.pause();
-      musicButton.textContent = '🎵 Musik';
+      musicButton.classList.add('paused');
+      musicButton.textContent = '🔇 Musik';
       isPlaying = false;
     }
   });
 });
 
-// Hover-Effekt für Videoboxen
 const videoContainers = document.querySelectorAll('.video-container');
 
 videoContainers.forEach(container => {

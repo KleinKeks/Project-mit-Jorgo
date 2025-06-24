@@ -91,7 +91,7 @@ function spielNeustarten() {
 function punkteAktualisieren() {
     if (spielLaeuft) {
         punkte++;
-        punkteAnzeige.textContent = 'Score: ' + punkte;
+        punkteAnzeige.textContent = 'Punkte: ' + punkte;
         if (punkte % 100 === 0) {
             spielBeschleunigen();
         }

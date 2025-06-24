@@ -4,7 +4,7 @@ const videos = document.querySelectorAll('video');
 const videoContainers = document.querySelectorAll('.video-container');
 let isPlaying = false;
 
-// Hilfsfunktion zur UI-Aktualisierung
+
 function updateMusicButtonUI() {
   if (isPlaying) {
     musicButton.textContent = '🎵 Musik';
@@ -15,7 +15,7 @@ function updateMusicButtonUI() {
   }
 }
 
-// Musik automatisch versuchen zu starten (leise, wenn erlaubt)
+
 window.addEventListener('DOMContentLoaded', () => {
   backgroundMusic.volume = 0.3;
   backgroundMusic.play().then(() => {
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Musik-Button klickbar machen
+
 musicButton.addEventListener('click', function () {
   if (isPlaying) {
     backgroundMusic.pause();
@@ -44,7 +44,6 @@ musicButton.addEventListener('click', function () {
   }
 });
 
-// Andere Videos pausieren, wenn eines spielt
 videos.forEach(video => {
   video.addEventListener('play', function () {
     videos.forEach(otherVideo => {
@@ -61,7 +60,7 @@ videos.forEach(video => {
   });
 });
 
-// Video-Hover-Effekt
+
 videoContainers.forEach(container => {
   container.addEventListener('mouseenter', function () {
     this.style.background = 'rgba(255, 255, 255, 0.15)';
